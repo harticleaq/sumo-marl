@@ -7,10 +7,10 @@ class Agent:
     def __init__(self, args):
         self.args = args
         self.n_actions = args.n_actions
-        self.state_shape = args.state_dim
-        self.obs_shape = args.obs_dim
-        self.n_agents = self.args.n_agents
-        self.inputs_shape = self.obs_shape + self.n_agents + self.n_actions
+        self.state_shape = args.state_shape
+        self.obs_shape = args.obs_shape
+        self.n_agents = args.n_agents
+        self.inputs_shape = args.obs_shape + args.n_agents + args.n_actions
         if args.alg == 'qmix':
             from policy.qmix import QMIX
             self.policy = QMIX(args)
@@ -19,7 +19,7 @@ class Agent:
         self.args = args
 
 
-    def choose_action(self, obs, agent_num, last_action,  epsilon, evaluate=False):
+    def choose_action(self, obs, agent_num, last_action, epsilon, evaluate=False):
         inputs = obs.copy()
         hidden_state = self.policy.eval_hidden[:, agent_num, :]
         agent_id = np.zeros(self.n_agents)

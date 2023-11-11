@@ -7,13 +7,13 @@ import time
 class RolloutWorker:
     def __init__(self, env, agents, args):
         self.env = env
+        self.args = args
         self.agents = agents
-        self.agents_id = args.agent_id
+        self.agents_id = args.agents_id
         self.episode_limit = args.episode_limit
         self.n_agents = args.n_agents
-        self.args = args
-        self.state_shape = args.state_dim
-        self.obs_shape = args.obs_dim
+        self.state_shape = args.state_shape
+        self.obs_shape = args.obs_shape
 
         self.epsilon = args.epsilon
         self.anneal_epsilon = args.anneal_epsilon

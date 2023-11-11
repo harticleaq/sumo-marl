@@ -8,8 +8,8 @@ class QMIX:
     def __init__(self, args):
         self.n_actions = args.n_actions
         self.n_agents = args.n_agents
-        self.obs_shape = args.obs_dim
-        self.state_shape = args.state_dim
+        self.obs_shape = args.obs_shape
+        self.state_shape = args.state_shape
         input_shape = self.obs_shape
         self.args = args
         if args.last_action:

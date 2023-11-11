@@ -1,14 +1,25 @@
-import gymnasium as gym
+import time
+from arguments import parse_args
+
 import sumo_rl
 
-env = gym.make('sumo-rl-v0',
-               net_file='./xml/1.net.xml', 
-               route_file='./xml/1.rou.xml',
-               out_csv_name='./xml/1.csv',
-               use_gui=True,
-               num_seconds=100000)
-obs, info = env.reset()
-done = False
-while not done:
-    next_obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
-    done = terminated or truncated
+
+if __name__ == '__main__':
+    args = parse_args().parse_args()
+
+    env = sumo_rl.parallel_env(net_file='./xml/singlecrossing.net.xml',
+                               route_file='./xml/singlecrossing.rou.xml',
+                               use_gui=True,
+                               sumo_warnings=True,
+                               num_seconds=20000)
+
+    for i in range(10):
+        observations = env.reset()
+        print(observations)
+        print("当前episode：", i+1)
+        while env.agents:
+            actions = {agent: env.action_space(agent).sample() for agent in env.agents}  # this is where you would insert your policy
+            observations, rewards, terminations, truncations, infos = env.step(actions)
+            # print("observations:=================================\n", observations)
+            # print("actions:=================================\n", actions)
+            time.sleep(args.speed)

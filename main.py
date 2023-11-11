@@ -16,22 +16,22 @@ if __name__ == '__main__':
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
     numpy.random.seed(args.seed)
+
     env = sumo_rl.parallel_env(net_file=args.net_file,
                                route_file=args.route_file,
                                use_gui=args.use_gui,
                                sumo_warnings=True,
                                num_seconds=args.num_seconds)
-    args.agent_id = env.possible_agents
-    args.n_actions = env.action_space(env.possible_agents[0]).n
-    args.obs_dim = max([env.observation_spaces[agent].shape[0] for agent in env.possible_agents])
-    args.state_dim = sum([env.observation_spaces[agent].shape[0] for agent in env.possible_agents])
-    args.state_shape = args.state_dim
-    args.obs_shape = args.obs_dim
-    args.n_agents = len(env.possible_agents)
+    args.agents_id = env.agents
+    args.n_actions = env.action_space(env.agents[0]).n
+    args.obs_shape = max([env.observation_spaces[agent].shape[0] for agent in env.agents])
+    args.state_shape = sum([env.observation_spaces[agent].shape[0] for agent in env.agents])
+    args.n_agents = len(env.agents)
 
     # 运行路径
     run_dir = Path(os.path.dirname(os.path.abspath(__file__)) + "/results") / args.alg / time.strftime("%Y-%m-%d-%H-%M-%S")
     args.run_dir = str(run_dir)
+
 
     runner = Runner(env, args)
     if not args.evaluate:

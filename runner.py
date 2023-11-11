@@ -32,6 +32,7 @@ class Runner:
                 print("--ave reward is", episode_reward)
                 self.episode_rewards.append(episode_reward)
                 evaluate_steps += 1
+
             episodes = []
             for episode_idx in range(self.args.n_episodes):
                 episode, reward, steps = self.rolloutWorker.generate_episode(episode_idx)

@@ -12,7 +12,7 @@ def parse_args():
 
     parser.add_argument("--n_episodes", type=int, default=1, help="轮数")
     parser.add_argument("--episode_limit", type=int, default=200, help="每轮step限制")
-    parser.add_argument('--alg', type=str, default='qmix', help='算法')
+    parser.add_argument('--alg', type=str, default='qmix', help='算法名称')
     parser.add_argument('--n_steps', type=int, default=1500000, help='总step')
     parser.add_argument('--gamma', type=float, default=0.99, help='discount factor')
     parser.add_argument('--optimizer', type=str, default="RMS", help='optimizer')
