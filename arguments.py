@@ -4,8 +4,8 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description = "Reinforcement Learning for sumo environments!")
 
-    parser.add_argument("--net_file", type=str, default='./xml/singlecrossing.net.xml', help="net.xml")
-    parser.add_argument("--route_file", type=str, default='./xml/singlecrossing.rou.xml', help="route.xml")
+    parser.add_argument("--net_file", type=str, default='./xml/2x2.net.xml', help="net.xml")
+    parser.add_argument("--route_file", type=str, default='./xml/2x2.rou.xml', help="route.xml")
     parser.add_argument("--use_gui", type=bool, default=True, help="是否打开GUI")
     parser.add_argument("--num_seconds", type=int, default=7200, help="每次模拟时间（s）")
 
