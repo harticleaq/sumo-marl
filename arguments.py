@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument('--evaluate_interval', type=int, default=5000, help='评估间隔')
     
     parser.add_argument('--load_model', type=bool, default=True, help='whether to load the pretrained model')
-    parser.add_argument('--evaluate', type=bool, default=False, help='whether to evaluate the model')
+    parser.add_argument('--evaluate', action="store_true", default=False, help='whether to evaluate the model')
     parser.add_argument('--cuda', type=bool, default=True, help='whether to use the GPU')
     parser.add_argument('--reuse_network', type=bool, default=True, help='重用网络')
     parser.add_argument('--last_action', type=bool, default=True, help='上一个动作')

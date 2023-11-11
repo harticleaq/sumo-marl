@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from runner import Runner
 import time
+import sys
 from arguments import parse_args
 import sumo_rl
 
@@ -11,7 +12,7 @@ import sumo_rl
 if __name__ == '__main__':
     args = parse_args().parse_args()
     args.anneal_epsilon = (args.epsilon - args.min_epsilon) / args.anneal_steps
-    
+
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
     numpy.random.seed(args.seed)
