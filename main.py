@@ -22,11 +22,12 @@ if __name__ == '__main__':
                                use_gui=args.use_gui,
                                sumo_warnings=True,
                                num_seconds=args.num_seconds)
-    args.agents_id = env.agents
-    args.n_actions = env.action_space(env.agents[0]).n
-    args.obs_shape = max([env.observation_spaces[agent].shape[0] for agent in env.agents])
-    args.state_shape = sum([env.observation_spaces[agent].shape[0] for agent in env.agents])
-    args.n_agents = len(env.agents)
+    # observations = env.reset()
+    args.agents_id = env.possible_agents
+    args.n_actions = env.action_space(env.possible_agents[0]).n
+    args.obs_shape = max([env.observation_spaces[agent].shape[0] for agent in env.possible_agents])
+    args.state_shape = sum([env.observation_spaces[agent].shape[0] for agent in env.possible_agents])
+    args.n_agents = len(env.possible_agents)
 
     # 运行路径
     run_dir = Path(os.path.dirname(os.path.abspath(__file__)) + "/results") / args.alg / time.strftime("%Y-%m-%d-%H-%M-%S")

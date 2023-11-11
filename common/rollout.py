@@ -28,7 +28,7 @@ class RolloutWorker:
         obs_dic = self.env.reset()[0]
         obs = [obs_dic[agent] for agent in self.agents_id]
         terminated = False
-        step = 0
+        step = 1
         episode_reward = 0  # cumulative rewards
         self.agents.policy.init_hidden(1)
         state = obs
@@ -38,7 +38,6 @@ class RolloutWorker:
         # epsilon
         epsilon = 0 if evaluate else self.epsilon
         while not terminated and step < self.episode_limit:
-            # time.sleep(0.1)
             actions, actions_onehot = [], []
             actions_dic = {}
             for agent_num in range(self.n_agents):
