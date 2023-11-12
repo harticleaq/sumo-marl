@@ -31,7 +31,7 @@ class RolloutWorker:
         step = 0
         episode_reward = 0  # cumulative rewards
         self.agents.policy.init_hidden(1)
-        state = obs
+        state = np.concatenate(obs, axis=-1)
         o.append(obs)
         s.append(state)
         last_action = np.zeros((self.args.n_agents, self.args.n_actions))
@@ -56,6 +56,7 @@ class RolloutWorker:
             obs = [obs_dic[agent] for agent in self.agents_id]
             reward = sum([reward_dic[agent] for agent in self.agents_id])
             o.append(obs)
+            state = np.concatenate(obs, axis=-1)
             s.append(state)
             u.append(np.reshape(actions, [self.n_agents, 1]))
             u_onehot.append(actions_onehot)
@@ -64,10 +65,8 @@ class RolloutWorker:
             padded.append([0.])
             episode_reward += reward
             step += 1
-
             epsilon = epsilon - self.anneal_epsilon if epsilon > self.min_epsilon else epsilon
 
-    
         o_next = o[1:]
         s_next = s[1:]
         o = o[:-1]
@@ -112,8 +111,6 @@ class RolloutWorker:
         # add episode dim
         for key in episode.keys():
             episode[key] = np.array([episode[key]])
-        episode['s'] = episode['s'].squeeze(-2)
-        episode['s_next'] = episode['s_next'].squeeze(-2)
         if not evaluate:
             self.epsilon = epsilon
         if evaluate and episode_num == self.args.evaluate_epoch - 1:

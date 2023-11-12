@@ -35,3 +35,9 @@ tensorboard --logdir .
 ```
 <img src="fig/Q.svg" align="middle" width="800" border="1"/>
 <img src="fig/evaluate_reward.svg" align="middle" width="800" border="1"/>
+
+### 更新日志
+11-12 fix bug：
+- 1.修改了只输出固定相位问题
+- 2.能够训练多路口
+- 3.修改了状态s不能保存问题

@@ -23,7 +23,8 @@ class Runner:
 
 
     def run(self, num):
-        time_steps, train_steps, evaluate_steps = 0, 0, -1
+        time_steps, train_steps, evaluate_steps = 0, 0, 0
+        log_steps = 0
         while time_steps < self.args.n_steps:
             print('Run {}, time_steps {}'.format(num, time_steps))
             if (time_steps // self.args.evaluate_interval) > evaluate_steps:
@@ -47,9 +48,10 @@ class Runner:
                 mini_batch = self.buffer.sample(min(self.buffer.current_size, self.args.batch_size))
                 train_infos = self.agents.train(mini_batch, train_steps)
                 train_steps += 1
-                if train_steps % self.args.log_interval == 0:
-                    for k, v in train_infos.items():
-                        self.writter.add_scalars(k, {k: v[k]}, train_steps)
+            if time_steps % self.args.log_interval > 0:
+                for k, v in train_infos.items():
+                    self.writter.add_scalars(k, {k: v[k]}, log_steps)
+                log_steps += 1
 
 
     def evaluate(self):
